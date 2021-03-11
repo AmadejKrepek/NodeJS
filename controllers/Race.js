@@ -8,6 +8,8 @@ export default class Race {
     }
     static FindFiles(collectionName) {
         let array = [];
+        let files = null;
+        let baseUrl = null;
         if (collectionName === "ironman") {
             array.push(files = fs.readdirSync("C:/Users/krepe/OneDrive - Univerza v Mariboru/FERI/2020_21/Vaje/2.semester2021/Orodja za razvoj aplikacij/1.naloga/data/Race-Results/Race-Results/IRONMAN/CSV/"));
             array.push(baseUrl = "C:/Users/krepe/OneDrive - Univerza v Mariboru/FERI/2020_21/Vaje/2.semester2021/Orodja za razvoj aplikacij/1.naloga/data/Race-Results/Race-Results/IRONMAN/CSV/");
@@ -37,17 +39,14 @@ export default class Race {
         async function run() {
             try {
                 let count = 0;
-                var files = null;
-                var baseUrl = null;
+                let files = Race.FindFiles(collectionName)[0];
+                let baseUrl = Race.FindFiles(collectionName)[1];
 
                 await client.connect();
 
                 const database = client.db("ozr");
                 const movies = database.collection(collectionName);
 
-                // create an array of documents to insert
-                //--------------------------------------------------------------------------------------------------------------------------
-                
                 var start = Date.now();
                 for (let j = 0; j < files.length; j++) {
                     const jsonArray = await csv().fromFile(baseUrl + files[j]);
@@ -67,7 +66,6 @@ export default class Race {
                 console.log(`All files: ${Race.countFiles}`);
                 var end = Date.now();
                 console.log(`Execution time: ${(end - start) / 1000} s`);
-                //--------------------------------------------------------------------------------------------------------------------------
 
             } finally {
                 await client.close();
