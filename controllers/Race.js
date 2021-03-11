@@ -27,7 +27,7 @@ export default class Race {
         }
         return array;
     }
-    static Insert(collectionName) {
+    static MongoSetup() {
         const uri =
             "mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb";
 
@@ -35,7 +35,10 @@ export default class Race {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-
+        return client;
+    }
+    static Insert(collectionName) {
+        const client = Race.MongoSetup();
         async function run() {
             try {
                 let count = 0;
