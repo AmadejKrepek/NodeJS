@@ -1,4 +1,4 @@
 import Race from "./controllers/Race";
-Race.Insert();
-Race.Insert1();
-Race.Insert2();
+Race.Insert("ironman");
+Race.Insert("ironman70");
+Race.Insert("ultra");
