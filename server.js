@@ -1,6 +1,6 @@
 import express from "express";
 
-import routes from "../NodeJS/routes/recipe";
+import routes from "./data/recipe";
 
 const app = express();
 
