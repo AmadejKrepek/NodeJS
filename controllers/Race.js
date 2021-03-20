@@ -76,4 +76,20 @@ export default class Race {
         }
         run().catch(console.dir);
     }
+    static Read() {
+        const client = Race.MongoSetup();
+        async function run() {
+            await client.connect();
+
+            const database = client.db("ozr");
+            const movies = database.collection("ironman");
+    
+            const findResult = await movies.find({
+                name: "Hanspeter Abegg",
+              });
+    
+            await findResult.forEach(console.dir);
+        }
+        run().catch(console.dir);
+    }
 }
