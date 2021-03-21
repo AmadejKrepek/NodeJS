@@ -1,29 +1,26 @@
-import db from "../models/index.js";
-import MongoClient from "mongodb";
+const db = require("../models");
+const Tutorial = db.ironman;
 
-const OZR = db.ironman
-
-// Create and save a new tutorial
+// Create and Save a new Tutorial
 exports.create = (req, res) => {
 
 };
 
-// Retrieve all Tutorials from the database
+// Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
     const name = req.query.name;
     let condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
-    OZR.find(condition)
-      .then(data => {
-          console.log(data)
-          res.send(data);
-      })
-      .catch((err) => {
-          res.status(500).send({
-              message:
-              err.message || "Some error occured while retrieving ozr collection data."
-          });
-      });
+    Tutorial.find(condition)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
 };
 
 // Find a single Tutorial with an id
@@ -41,12 +38,12 @@ exports.delete = (req, res) => {
 
 };
 
-// Delete all tutorials from the database
+// Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
 
 };
 
-// Find all published tutorials
+// Find all published Tutorials
 exports.findAllPublished = (req, res) => {
 
 };
