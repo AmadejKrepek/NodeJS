@@ -6,4 +6,3 @@ Race.Insert("ironman");
 Race.Insert("ironman70");
 Race.Insert("ultra");
 */
-Race.Read();

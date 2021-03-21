@@ -1,6 +1,6 @@
 import express from "express";
 
-import routes from "./routes/recipe";
+import routes from "./routes/tekmovalec";
 
 const app = express();
 
