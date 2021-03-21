@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./routes/athlete.js";
+import routes from "./routes/tutorial.routes.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
