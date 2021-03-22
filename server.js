@@ -1,6 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express from "express";
+import { json, urlencoded } from "body-parser";
+import cors from "cors";
+import routes from "./routes/ironman.routes";
 
 const app = express();
 
@@ -11,14 +12,14 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
-const db = require("./models");
-db.mongoose
-  .connect(db.url, {
+import { mongoose, url } from "./models";
+mongoose
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -35,7 +36,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to API." });
 });
 
-require("./routes/ironman.routes")(app);
+routes(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
