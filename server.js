@@ -3,6 +3,7 @@ import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import routes from "./routes/ironman.routes";
 import routes1 from "./routes/ironman70.routes";
+import routes2 from "./routes/ultra.routes";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 routes(app);
 routes1(app);
+routes2(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
