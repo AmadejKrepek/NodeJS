@@ -6,5 +6,5 @@ Race.Insert("ironman");
 Race.Insert("ironman70");
 Race.Insert("ultra");
 */
-//Race.Insert("ironmans");
+//Race.Insert("70ironmans");
 

@@ -1,4 +1,4 @@
-import { ironman } from "../models/indexIronMan";
+import { ironman } from "../models/indexIronMan70";
 const Athlete = ironman;
 
 // Create and Save a new Athlete
