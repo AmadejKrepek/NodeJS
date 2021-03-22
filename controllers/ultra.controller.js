@@ -1,19 +1,18 @@
-import { ironman } from "../models/indexIronMan";
+import { ironman } from "../models/indexUltra";
 const Athlete = ironman;
 
 // Create and Save a new Athlete
 export function create(req, res) {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.Overall) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
   // Create a Tutorial
   const athlete = new Athlete({
-    name: req.body.name,
-    country: req.body.country,
-    runDistance: req.body.runDistance
+    Overall: req.body.Overall,
+    Country: req.body.Country,
   });
 
   // Save Tutorial in the database
@@ -32,8 +31,8 @@ export function create(req, res) {
 
 // Retrieve all ironmans from the database.
 export function findAll(req, res) {
-  const name = req.query.name;
-  var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
+  const Overall = req.query.Overall;
+  var condition = Overall ? { Overall: { $regex: new RegExp(Overall), $options: "i" } } : {};
 
   Athlete.find(condition)
     .then(data => {
