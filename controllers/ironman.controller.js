@@ -1,8 +1,8 @@
-const db = require("../models");
-const Athlete = db.ironman;
+import { ironman } from "../models";
+const Athlete = ironman;
 
 // Create and Save a new Athlete
-exports.create = (req, res) => {
+export function create(req, res) {
   // Validate request
   if (!req.body.name) {
     res.status(400).send({ message: "Content can not be empty!" });
@@ -28,10 +28,10 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the Athlete."
       });
     });
-};
+}
 
 // Retrieve all ironmans from the database.
-exports.findAll = (req, res) => {
+export function findAll(req, res) {
   const name = req.query.name;
   var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
@@ -45,10 +45,10 @@ exports.findAll = (req, res) => {
           err.message || "Some error occurred while retrieving athletes."
       });
     });
-};
+}
 
 // Find a single Athlete with an id
-exports.findOne = (req, res) => {
+export function findOne(req, res) {
   const id = req.params.id;
 
   Athlete.findById(id)
@@ -62,10 +62,10 @@ exports.findOne = (req, res) => {
         .status(500)
         .send({ message: "Error retrieving Athlete with id=" + id });
     });
-};
+}
 
 // Update a Athlete by the id in the request
-exports.update = (req, res) => {
+export function update(req, res) {
   if (!req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
@@ -87,10 +87,10 @@ exports.update = (req, res) => {
         message: "Error updating Athlete with id=" + id
       });
     });
-};
+}
 
 // Delete a Athlete with the specified id in the request
-exports.delete = (req, res) => {
+export function deleteOne(req, res) {
   const id = req.params.id;
 
   Athlete.findByIdAndRemove(id)
@@ -113,7 +113,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all ironmans from the database.
-exports.deleteAll = (req, res) => {
+export function deleteAll(req, res) {
   Athlete.deleteMany({})
     .then(data => {
       res.send({
@@ -126,9 +126,9 @@ exports.deleteAll = (req, res) => {
           err.message || "Some error occurred while removing all tutorials."
       });
     });
-};
+}
 
 // Find all published ironmans
-exports.findAllPublished = (req, res) => {
+export function findAllPublished(req, res) {
 
-};
+}

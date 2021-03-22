@@ -1,28 +1,28 @@
-module.exports = app => {
-    const ironman = require("../controllers/ironman.controller.js");
-  
+import {create, findAll, findOne, update, deleteOne, deleteAll, findAllPublished} from "../controllers/ironman.controller.js";
+
+export default app => {  
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/", ironman.create);
+    router.post("/", create);
   
     // Retrieve all ironman
-    router.get("/", ironman.findAll);
+    router.get("/", findAll);
   
     // Retrieve all published ironman
-    router.get("/published", ironman.findAllPublished);
+    router.get("/published", findAllPublished);
   
     // Retrieve a single Tutorial with id
-    router.get("/:id", ironman.findOne);
+    router.get("/:id", findOne);
   
     // Update a Tutorial with id
-    router.put("/:id", ironman.update);
+    router.put("/:id", update);
   
     // Delete a Tutorial with id
-    router.delete("/:id", ironman.delete);
+    router.delete("/:id", deleteOne);
   
     // Create a new Tutorial
-    router.delete("/", ironman.deleteAll);
+    router.delete("/", deleteAll);
   
     app.use('/api/ironman', router);
   };

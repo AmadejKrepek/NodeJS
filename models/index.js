@@ -1,11 +1,12 @@
-const dbConfig = require("../config/db.config.js");
+import { url } from "../config/db.config.js";
+import mongoose from "mongoose";
+import ironmanModel from "./ironman.model.js";
 
-const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const db = {};
 db.mongoose = mongoose;
-db.url = dbConfig.url;
-db.ironman = require("./ironman.model.js")(mongoose);
+db.url = url;
+db.ironman = ironmanModel(mongoose);
 
 module.exports = db;
