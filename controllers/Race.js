@@ -42,8 +42,8 @@ export default class Race {
         async function run() {
             try {
                 let count = 0;
-                let files = Race.FindFiles("ironman70")[0];
-                let baseUrl = Race.FindFiles("ironman70")[1];
+                let files = Race.FindFiles("ironman")[0];
+                let baseUrl = Race.FindFiles("ironman")[1];
 
                 await client.connect();
 
