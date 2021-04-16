@@ -24,5 +24,5 @@ export default app => {
     // Create a new Tutorial
     router.delete("/", deleteAll);
   
-    app.use('/api/ironman', router);
+    app.use('/api/ironmans', router);
   };
