@@ -6,12 +6,13 @@ import routes1 from "./routes/ironman70.routes";
 import routes2 from "./routes/ultra.routes";
 
 const app = express();
-
+/*
 var corsOptions = {
   origin: "http://localhost:3001"
 };
-
-app.use(cors(corsOptions));
+*/
+//app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(json());
