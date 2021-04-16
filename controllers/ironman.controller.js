@@ -1,6 +1,13 @@
 import { ironman } from "../models/indexIronMan";
 const Athlete = ironman;
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
 // Create and Save a new Athlete
 export function create(req, res) {
   // Validate request
@@ -49,10 +56,30 @@ export function create(req, res) {
 
 // Retrieve all ironmans from the database.
 export function findAll(req, res) {
-  const name = req.query.name;
+  //const name = req.query.name;
+  const { page, size, name } = req.query;
   var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
-  Athlete.find(condition).limit(10)
+  const { limit, offset } = getPagination(page, size);
+
+  Athlete.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        tutorials: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+
+  /*
+  Athlete.find(condition)
     .then(data => {
       res.send(data);
     })
@@ -62,6 +89,7 @@ export function findAll(req, res) {
           err.message || "Some error occurred while retrieving athletes."
       });
     });
+  */
 }
 
 // Find a single Athlete with an id
