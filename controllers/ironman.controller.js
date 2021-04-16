@@ -13,7 +13,24 @@ export function create(req, res) {
   const athlete = new Athlete({
     name: req.body.name,
     country: req.body.country,
-    runDistance: req.body.runDistance
+    genderRank: req.body.genderRank,
+    divRank: req.body.divRank,
+    overallRank: req.body.overallRank,
+    bib: req.body.bib,
+    division: req.body.division,
+    age: req.body.age,
+    state: req.body.state,
+    profession: req.body.profession,
+    points: req.body.points,
+    swim: req.body.swim,
+    swimDistance: req.body.swimDistance,
+    t1: req.body.t1,
+    bike: req.body.bike,
+    bikeDistance: req.body.bikeDistance,
+    t2: req.body.t2,
+    run: req.body.run,
+    runDistance: req.body.runDistance,
+    overall: req.body.overall
   });
 
   // Save Tutorial in the database
@@ -35,7 +52,7 @@ export function findAll(req, res) {
   const name = req.query.name;
   var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
-  Athlete.find(condition)
+  Athlete.find(condition).limit(10)
     .then(data => {
       res.send(data);
     })
