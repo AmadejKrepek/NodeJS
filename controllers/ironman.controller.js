@@ -66,7 +66,7 @@ export function findAll(req, res) {
     .then((data) => {
       res.send({
         totalItems: data.totalDocs,
-        tutorials: data.docs,
+        ironmans: data.docs,
         totalPages: data.totalPages,
         currentPage: data.page - 1,
       });
