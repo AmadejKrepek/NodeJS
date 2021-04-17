@@ -1,4 +1,4 @@
-import {create, findAll, findOne, update, deleteOne, deleteAll, findAllPublished} from "../controllers/ultra.controller";
+import {create, findAll, findOne, update, deleteOne, deleteAll, findAllPublished, findDNF, findTop100, findTop10} from "../controllers/ultra.controller";
 
 export default app => {  
     var router = require("express").Router();
@@ -8,6 +8,12 @@ export default app => {
   
     // Retrieve all ironman
     router.get("/", findAll);
+
+    router.get("/DNF", findDNF);
+
+    router.get("/top100", findTop100);
+
+    router.get("/top10", findTop10);
   
     // Retrieve all published ironman
     router.get("/published", findAllPublished);
@@ -24,5 +30,5 @@ export default app => {
     // Create a new Tutorial
     router.delete("/", deleteAll);
   
-    app.use('/api/ultra', router);
+    app.use('/api/ultras', router);
   };
