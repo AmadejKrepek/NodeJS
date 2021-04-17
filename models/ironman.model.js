@@ -33,16 +33,16 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 export default mongoose => {
     const schema = new mongoose.Schema({
         name: String,
-        genderRank: String,
+        genderRank: Number,
         divRank: String,
-        overallRank: String,
+        overallRank: Number,
         bib: String,
         division: String,
-        age: String,
+        age: Number,
         state: String,
         country: String,
         profession: String,
-        points: String,
+        points: Number,
         swim: String,
         swimDistance: String,
         t1: String,
@@ -60,7 +60,7 @@ export default mongoose => {
 
       MyModel.paginate({}, { limit: 5 })
       .then(result => {
-          console.log(result);
+          //console.log(result);
       })
       .catch(err => console.log(err));
 

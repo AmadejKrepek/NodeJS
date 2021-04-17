@@ -1,4 +1,4 @@
-import {create, findAll, findOne, update, deleteOne, deleteAll, findAllPublished} from "../controllers/ironman.controller.js";
+import {create, findAll, findOne, update, deleteOne, deleteAll, findAllPublished, findDNF, findTop100, findTop2500, findTeens, findAdults} from "../controllers/ironman.controller.js";
 
 export default app => {  
     var router = require("express").Router();
@@ -8,6 +8,16 @@ export default app => {
   
     // Retrieve all ironman
     router.get("/", findAll);
+
+    router.get("/DNF", findDNF)
+
+    router.get("/top100", findTop100)
+
+    router.get("/top2500", findTop2500)
+
+    router.get("/teens", findTeens)
+
+    router.get("/adults", findAdults)
   
     // Retrieve all published ironman
     router.get("/published", findAllPublished);

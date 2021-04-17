@@ -42,8 +42,8 @@ export default class Race {
         async function run() {
             try {
                 let count = 0;
-                let files = Race.FindFiles("ironman")[0];
-                let baseUrl = Race.FindFiles("ironman")[1];
+                let files = Race.FindFiles("ironman70")[0];
+                let baseUrl = Race.FindFiles("ironman70")[1];
 
                 await client.connect();
 
@@ -56,6 +56,24 @@ export default class Race {
 
                     if (jsonArray.length !== 0) {
                         const docs = jsonArray;
+
+                        jsonArray.forEach(element => {
+                            if (isNaN(element.overallRank) === false) {
+                                element.overallRank = parseInt(element.overallRank);
+                            }
+                            if (isNaN(element.overall) === false) {
+                                element.overall = parseInt(element.overall);
+                            }
+                            if (isNaN(element.points) === false) {
+                                element.points = parseInt(element.points);
+                            }
+                            if (isNaN(element.genderRank) === false) {
+                                element.genderRank = parseInt(element.genderRank);
+                            }
+                            if (isNaN(element.age) === false) {
+                                element.age = parseInt(element.age);
+                            }
+                        });
 
                         const options = { ordered: true };
         
