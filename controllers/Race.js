@@ -42,8 +42,8 @@ export default class Race {
         async function run() {
             try {
                 let count = 0;
-                let files = Race.FindFiles("ironman70")[0];
-                let baseUrl = Race.FindFiles("ironman70")[1];
+                let files = Race.FindFiles("ultra")[0];
+                let baseUrl = Race.FindFiles("ultra")[1];
 
                 await client.connect();
 
@@ -56,24 +56,39 @@ export default class Race {
 
                     if (jsonArray.length !== 0) {
                         const docs = jsonArray;
+                        if (collectionName === "ironmans" || collectionName === "70ironmans") {
+                            jsonArray.forEach(element => {
+                                if (isNaN(element.overallRank) === false) {
+                                    element.overallRank = parseInt(element.overallRank);
+                                }
+                                if (isNaN(element.overall) === false) {
+                                    element.overall = parseInt(element.overall);
+                                }
+                                if (isNaN(element.points) === false) {
+                                    element.points = parseInt(element.points);
+                                }
+                                if (isNaN(element.genderRank) === false) {
+                                    element.genderRank = parseInt(element.genderRank);
+                                }
+                                if (isNaN(element.age) === false) {
+                                    element.age = parseInt(element.age);
+                                }
+                            });
+                        }
+                        else if (collectionName === "ultras") {
+                            jsonArray.forEach(element => {
+                                if (isNaN(element.Rank) === false) {
+                                    element.Rank = parseInt(element.Rank);
+                                }
+                                if (isNaN(element.Overall) === true) {
+                                    element.Overall = "---"
+                                }
+                                if (element.Competitor === "Germany" || element.Competitor === "Netherlands" || element.Competitor === "Denmark" || element.Competitor === "EspaÃ±a" || element.Competitor === "Belgium" || element.Competitor === "Switzerland" || element.Competitor === "Autriche" || element.Competitor === "France" || element.Competitor === "Great Britain" || element.Competitor === "Malta") {
+                                    element.Competitor = "Provide name";
+                                }
+                            });
+                        }
 
-                        jsonArray.forEach(element => {
-                            if (isNaN(element.overallRank) === false) {
-                                element.overallRank = parseInt(element.overallRank);
-                            }
-                            if (isNaN(element.overall) === false) {
-                                element.overall = parseInt(element.overall);
-                            }
-                            if (isNaN(element.points) === false) {
-                                element.points = parseInt(element.points);
-                            }
-                            if (isNaN(element.genderRank) === false) {
-                                element.genderRank = parseInt(element.genderRank);
-                            }
-                            if (isNaN(element.age) === false) {
-                                element.age = parseInt(element.age);
-                            }
-                        });
 
                         const options = { ordered: true };
         
