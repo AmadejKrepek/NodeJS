@@ -1,6 +1,13 @@
 import { ironman } from "../models/indexUltra";
 const Athlete = ironman;
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
 // Create and Save a new Athlete
 export function create(req, res) {
   // Validate request
@@ -11,8 +18,18 @@ export function create(req, res) {
 
   // Create a Tutorial
   const athlete = new Athlete({
+    Rank: req.body.Rank,
     Overall: req.body.Overall,
+    Competitor: req.body.Competitor,
     Country: req.body.Country,
+    Age_Category: req.body.Age_Category,
+    Swim: req.body.Swim,
+    Trans1: req.body.Trans1,
+    Bike: req.body.Bike,
+    Trans2: req.body.Trans2,
+    Run: req.body.Run,
+    Finish: req.body.Finish,
+    Comment: req.body.Comment
   });
 
   // Save Tutorial in the database
@@ -31,17 +48,24 @@ export function create(req, res) {
 
 // Retrieve all ironmans from the database.
 export function findAll(req, res) {
-  const Overall = req.query.Overall;
-  var condition = Overall ? { Overall: { $regex: new RegExp(Overall), $options: "i" } } : {};
+  const { page, size, Competitor} = req.query;
+  var condition = Competitor ? { Competitor: { $regex: new RegExp(Competitor), $options: "i" } } : {};
 
-  Athlete.find(condition)
-    .then(data => {
-      res.send(data);
+  const { limit, offset } = getPagination(page, size);
+
+  Athlete.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        ironmans: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving athletes."
+          err.message || "Some error occurred while retrieving ironmans.",
       });
     });
 }
@@ -60,6 +84,78 @@ export function findOne(req, res) {
       res
         .status(500)
         .send({ message: "Error retrieving Athlete with id=" + id });
+    });
+}
+
+// Find all overall dnf athletes
+export function findDNF(req, res) {
+  const { page, size } = req.query;
+  var condition = { "Finish": "" }
+
+  const { limit, offset } = getPagination(page, size);
+
+  Athlete.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        ironmans: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ironmans.",
+      });
+    });
+}
+
+// Find all who are higher overallrank than 100
+export function findTop100(req, res) {
+  const { page, size } = req.query;
+  var condition = { "Rank": {$lte: 100} }
+
+  const { limit, offset } = getPagination(page, size);
+
+  Athlete.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        ironmans: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ironmans.",
+      });
+    });
+}
+
+// Find all teens
+export function findTop10(req, res) {
+  const { page, size } = req.query;
+  var condition = { $and: [ { "Rank": { $gte: 1 } }, { "Rank": { $lte: 10} } ] }
+
+  const { limit, offset } = getPagination(page, size);
+
+  Athlete.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        ironmans: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ironmans.",
+      });
     });
 }
 
